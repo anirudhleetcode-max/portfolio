@@ -44,6 +44,10 @@ export function Pill({ children, className }: { children: React.ReactNode; class
   );
 }
 
+/** The single phrase used wherever a project's deployment status is shown. */
+export const statusLabel = (href: string | null) =>
+  href ? "Live · deployed" : "Local demo · deployment pending";
+
 /**
  * The live-demo control. `liveUrl` is null for every project in this portfolio
  * because none of them is deployed, so this renders a disabled "Local demo"

@@ -1,10 +1,45 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { applyOptions, matchesQuery } from "./match";
 import { DbError, type BaseDoc, type Collection, type FindOptions, type Query } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), ".data");
+/**
+ * Where the JSON store lives.
+ *
+ * Locally that is `./.data` beside the project. On a serverless host the
+ * deployment bundle is read-only, so writing there fails with EROFS/EACCES and
+ * every form on the site would return 500. When the preferred directory is not
+ * writable the store falls back to the platform temp directory, which is
+ * writable but per-instance and wiped between cold starts — a demo fallback,
+ * not storage. Set `MONGODB_URI` for a deployment whose data must survive.
+ */
+const PREFERRED_DIR = process.env.DATA_DIR?.trim() || path.join(process.cwd(), ".data");
+const FALLBACK_DIR = path.join(os.tmpdir(), "portfolio-suite-data");
+
+let resolvedDir: Promise<string> | null = null;
+
+function dataDir(): Promise<string> {
+  if (!resolvedDir) {
+    resolvedDir = (async () => {
+      try {
+        await fs.mkdir(PREFERRED_DIR, { recursive: true });
+        await fs.access(PREFERRED_DIR, fs.constants.W_OK);
+        return PREFERRED_DIR;
+      } catch {
+        await fs.mkdir(FALLBACK_DIR, { recursive: true });
+        console.warn(
+          `[db] ${PREFERRED_DIR} is not writable, so this instance is using the ` +
+            `ephemeral store at ${FALLBACK_DIR}. Data will not survive a cold start. ` +
+            `Set MONGODB_URI for durable storage.`,
+        );
+        return FALLBACK_DIR;
+      }
+    })();
+  }
+  return resolvedDir;
+}
 
 /** Serialises writes per file so concurrent route handlers cannot interleave. */
 const writeLocks = new Map<string, Promise<unknown>>();
@@ -20,7 +55,7 @@ async function withLock<R>(key: string, fn: () => Promise<R>): Promise<R> {
 }
 
 async function readFile<T>(name: string): Promise<T[]> {
-  const file = path.join(DATA_DIR, `${name}.json`);
+  const file = path.join(await dataDir(), `${name}.json`);
   try {
     const raw = await fs.readFile(file, "utf8");
     const parsed: unknown = JSON.parse(raw);
@@ -33,9 +68,10 @@ async function readFile<T>(name: string): Promise<T[]> {
 }
 
 async function writeFile<T>(name: string, rows: T[]): Promise<void> {
-  const file = path.join(DATA_DIR, `${name}.json`);
+  const dir = await dataDir();
+  const file = path.join(dir, `${name}.json`);
   try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
+    await fs.mkdir(dir, { recursive: true });
     await fs.writeFile(`${file}.tmp`, JSON.stringify(rows, null, 2), "utf8");
     await fs.rename(`${file}.tmp`, file);
   } catch (error) {

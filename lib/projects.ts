@@ -5,9 +5,40 @@
  * work is real, the clients are not. Nothing below claims a paying client, a
  * deployment that does not exist, or a metric that was not measured.
  *
- * `liveUrl` is deliberately `null` for every project: none of them is deployed,
- * and the UI renders "Local demo" rather than inventing a link.
+ * `liveUrl` comes from the environment and defaults to `null`. Nothing is
+ * deployed yet, so the UI renders "Local demo · deployment pending" rather than
+ * inventing a link. Once a project is genuinely live, set its variable below
+ * (in Vercel, or in `.env.local`) and the card and case study pick it up — no
+ * URL is ever guessed or hard-coded here.
  */
+
+/**
+ * Only an absolute https:// URL is accepted. Anything else — a placeholder, a
+ * blank value, an http:// address — is treated as "not deployed", so a typo or
+ * a half-filled variable can never become a link that claims to be live.
+ */
+function liveUrl(value: string | undefined): string | null {
+  const trimmed = value?.trim();
+  if (!trimmed) return null;
+  try {
+    const url = new URL(trimmed);
+    return url.protocol === "https:" ? url.toString().replace(/\/$/, "") : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Next.js only inlines `process.env.NEXT_PUBLIC_*` for literal member access,
+ * so each variable is named explicitly rather than looked up by slug.
+ */
+const LIVE = {
+  bakery: liveUrl(process.env.NEXT_PUBLIC_LIVE_URL_BAKERY),
+  cafe: liveUrl(process.env.NEXT_PUBLIC_LIVE_URL_CAFE),
+  events: liveUrl(process.env.NEXT_PUBLIC_LIVE_URL_EVENTS),
+  fitness: liveUrl(process.env.NEXT_PUBLIC_LIVE_URL_FITNESS),
+  store: liveUrl(process.env.NEXT_PUBLIC_LIVE_URL_STORE),
+} as const;
 
 export type Project = {
   slug: string;
@@ -36,7 +67,7 @@ export const PROJECTS: Project[] = [
       "A full ordering journey for a small-batch bakery: an 18-item catalogue, a persisted cart, a validated checkout with delivery or collection slots, and custom-cake commissions.",
     role: "Design, front-end, API, data layer",
     year: "2026",
-    liveUrl: null,
+    liveUrl: LIVE.bakery,
     repoPath: "portfolio-suite/premium-bakery-ordering",
     stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind v4", "Framer Motion", "React Three Fiber", "Zod"],
     features: [
@@ -59,7 +90,7 @@ export const PROJECTS: Project[] = [
       "A dark, cinematic café site with a working reservation system: live seat availability as you pick a slot, server-side capacity enforcement, and a password-protected staff dashboard.",
     role: "Design, front-end, API, auth, data layer",
     year: "2026",
-    liveUrl: null,
+    liveUrl: LIVE.cafe,
     repoPath: "portfolio-suite/noir-bean-cafe",
     stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind v4", "Framer Motion", "React Three Fiber", "Zod"],
     features: [
@@ -82,7 +113,7 @@ export const PROJECTS: Project[] = [
       "A light editorial site for an event design studio, backed by a database rather than static content: the studio dashboard can create, edit, publish and delete the work shown on the public site.",
     role: "Design, front-end, API, auth, data layer",
     year: "2026",
-    liveUrl: null,
+    liveUrl: LIVE.events,
     repoPath: "portfolio-suite/vanta-events-platform",
     stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind v4", "Framer Motion", "React Three Fiber", "Zod"],
     features: [
@@ -105,7 +136,7 @@ export const PROJECTS: Project[] = [
       "A barbell studio platform with real user accounts: registration, roles, a 14-day timetable derived from a weekly template, class booking with server-enforced limits, and separate member and admin dashboards.",
     role: "Design, front-end, API, auth, data layer",
     year: "2026",
-    liveUrl: null,
+    liveUrl: LIVE.fitness,
     repoPath: "portfolio-suite/formx-fitness-platform",
     stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind v4", "Framer Motion", "React Three Fiber", "Recharts", "Zod"],
     features: [
@@ -128,7 +159,7 @@ export const PROJECTS: Project[] = [
       "A lifestyle store built around a payment integration: catalogue, search and filtering, bag, checkout, and Razorpay in test mode with server-side signature verification — plus success, failure and cancellation handled as first-class outcomes.",
     role: "Design, front-end, API, payments, auth, data layer",
     year: "2026",
-    liveUrl: null,
+    liveUrl: LIVE.store,
     repoPath: "portfolio-suite/arc-form-ecommerce",
     stack: ["Next.js 15", "React 19", "TypeScript", "Tailwind v4", "Razorpay (test)", "Framer Motion", "Recharts", "Zod"],
     features: [

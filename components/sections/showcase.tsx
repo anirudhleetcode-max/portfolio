@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ImageReveal, Parallax } from "@/components/motion/parallax";
-import { Pill, Section, accentText } from "@/components/ui/primitives";
+import { Pill, Section, accentText, statusLabel } from "@/components/ui/primitives";
 import { PROJECTS } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
@@ -65,7 +65,7 @@ export function Showcase() {
                   </div>
                   <div>
                     <dt className="eyebrow text-fog">Status</dt>
-                    <dd className="mt-1.5 text-sm text-white-warm">Local demo · deployment pending</dd>
+                    <dd className="mt-1.5 text-sm text-white-warm">{statusLabel(project.liveUrl)}</dd>
                   </div>
                 </dl>
                 <div className="mt-6 flex flex-wrap gap-1.5">

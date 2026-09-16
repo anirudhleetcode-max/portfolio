@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Github } from "lucide-react";
 import { Reveal, SplitText } from "@/components/motion/reveal";
 import { ImageReveal } from "@/components/motion/parallax";
-import { LiveDemoButton, Pill, accentDot, accentText } from "@/components/ui/primitives";
+import { LiveDemoButton, Pill, accentDot, accentText, statusLabel } from "@/components/ui/primitives";
 import { CASE_STUDIES, PROJECTS, REPO_URL, getProject } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
@@ -169,9 +169,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
             <div className="panel rounded-xl p-6">
               <h2 className="eyebrow text-fog">Status</h2>
-              <p className="mt-3 text-sm text-white-warm">Local demo · deployment pending</p>
+              <p className="mt-3 text-sm text-white-warm">{statusLabel(project.liveUrl)}</p>
               <p className="mt-2 text-xs leading-relaxed text-fog">
-                Runs locally from the repository. No hosted instance exists, so no link is given.
+                {project.liveUrl
+                  ? "Deployed and reachable at the link above."
+                  : "Runs locally from the repository. No hosted instance exists, so no link is given."}
               </p>
             </div>
           </aside>
