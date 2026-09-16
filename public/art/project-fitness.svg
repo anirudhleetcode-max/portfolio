@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" width="1600" height="1100" role="img">
+<defs>
+<linearGradient id="a3975gdbg" gradientTransform="rotate(64.78 .5 .5)">
+<stop offset="0%" stop-color="#070B0D"/>
+<stop offset="55%" stop-color="#0C181B"/>
+<stop offset="100%" stop-color="#0E2328"/>
+</linearGradient>
+<radialGradient id="a3975gdvig" cx="50%" cy="42%" r="78%">
+<stop offset="55%" stop-color="#000" stop-opacity="0"/>
+<stop offset="100%" stop-color="#000" stop-opacity="0.38"/>
+</radialGradient>
+<filter id="a3975gdsoft" x="-40%" y="-40%" width="180%" height="180%">
+<feGaussianBlur stdDeviation="121"/>
+</filter>
+<filter id="a3975gdgrain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+<feColorMatrix type="saturate" values="0"/>
+</filter>
+</defs>
+<rect width="1600" height="1100" fill="url(#a3975gdbg)"/>
+<g filter="url(#a3975gdsoft)"><circle cx="1171.73" cy="514.43" r="339.27" fill="#0C181B" opacity="0.49"/><circle cx="271.33" cy="633.33" r="539.02" fill="#0E2328" opacity="0.52"/></g>
+<g transform="translate(0,8.8)" opacity="0.55" style="color:#3DDBD9"><g fill="none" stroke="#3DDBD9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.75">
+<path d="M500 572 h600"/>
+<rect x="547" y="444" width="34" height="256" rx="12" opacity="0.9"/><rect x="593" y="476" width="34" height="192" rx="12" opacity="0.72"/><rect x="633" y="508" width="34" height="128" rx="12" opacity="0.55"/>
+<rect x="1019" y="444" width="34" height="256" rx="12" opacity="0.9"/><rect x="973" y="476" width="34" height="192" rx="12" opacity="0.72"/><rect x="933" y="508" width="34" height="128" rx="12" opacity="0.55"/>
+<path d="M704 546 h192 v52 h-192 z" opacity="0.5"/>
+<path d="M500 786 c 120 -74 480 -74 600 0" opacity="0.32"/>
+<path d="M500 358 c 120 74 480 74 600 0" opacity="0.32"/>
+</g></g><g fill="none" stroke="#3DDBD9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.75">
+<path d="M500 572 h600"/>
+<rect x="547" y="444" width="34" height="256" rx="12" opacity="0.9"/><rect x="593" y="476" width="34" height="192" rx="12" opacity="0.72"/><rect x="633" y="508" width="34" height="128" rx="12" opacity="0.55"/>
+<rect x="1019" y="444" width="34" height="256" rx="12" opacity="0.9"/><rect x="973" y="476" width="34" height="192" rx="12" opacity="0.72"/><rect x="933" y="508" width="34" height="128" rx="12" opacity="0.55"/>
+<path d="M704 546 h192 v52 h-192 z" opacity="0.5"/>
+<path d="M500 786 c 120 -74 480 -74 600 0" opacity="0.32"/>
+<path d="M500 358 c 120 74 480 74 600 0" opacity="0.32"/>
+</g>
+<rect width="1600" height="1100" fill="url(#a3975gdvig)"/>
+<rect width="1600" height="1100" filter="url(#a3975gdgrain)" opacity="0.1" style="mix-blend-mode:overlay"/>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" width="1600" height="1100" role="img">
+<defs>
+<linearGradient id="agh61gzbg" gradientTransform="rotate(54.77 .5 .5)">
+<stop offset="0%" stop-color="#0A0910"/>
+<stop offset="55%" stop-color="#15111C"/>
+<stop offset="100%" stop-color="#241A10"/>
+</linearGradient>
+<radialGradient id="agh61gzvig" cx="50%" cy="42%" r="78%">
+<stop offset="55%" stop-color="#000" stop-opacity="0"/>
+<stop offset="100%" stop-color="#000" stop-opacity="0.38"/>
+</radialGradient>
+<filter id="agh61gzsoft" x="-40%" y="-40%" width="180%" height="180%">
+<feGaussianBlur stdDeviation="121"/>
+</filter>
+<filter id="agh61gzgrain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+<feColorMatrix type="saturate" values="0"/>
+</filter>
+</defs>
+<rect width="1600" height="1100" fill="url(#agh61gzbg)"/>
+<g filter="url(#agh61gzsoft)"><circle cx="954.61" cy="19" r="505.12" fill="#15111C" opacity="0.65"/><circle cx="1296.36" cy="578.43" r="393.38" fill="#241A10" opacity="0.55"/></g>
+<g transform="translate(0,8.8)" opacity="0.55" style="color:#FFB547"><g fill="none" stroke="#FFB547" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.75">
+<path d="M560 814 h480"/>
+<path d="M590 814 v-52 h420 v52"/>
+<ellipse cx="800" cy="762" rx="210" ry="30"/>
+<path d="M650 748 v-92 h300 v92"/>
+<ellipse cx="800" cy="656" rx="150" ry="24"/>
+<path d="M708 644 v-78 h184 v78"/>
+<ellipse cx="800" cy="566" rx="92" ry="17"/>
+<path d="M800 552 v-34"/>
+<circle cx="800" cy="506" r="14"/>
+<path d="M500 800 v-236 a300 236 0 0 1 600 0 v236" opacity="0.4"/>
+</g></g><g fill="none" stroke="#FFB547" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.75">
+<path d="M560 814 h480"/>
+<path d="M590 814 v-52 h420 v52"/>
+<ellipse cx="800" cy="762" rx="210" ry="30"/>
+<path d="M650 748 v-92 h300 v92"/>
+<ellipse cx="800" cy="656" rx="150" ry="24"/>
+<path d="M708 644 v-78 h184 v78"/>
+<ellipse cx="800" cy="566" rx="92" ry="17"/>
+<path d="M800 552 v-34"/>
+<circle cx="800" cy="506" r="14"/>
+<path d="M500 800 v-236 a300 236 0 0 1 600 0 v236" opacity="0.4"/>
+</g>
+<rect width="1600" height="1100" fill="url(#agh61gzvig)"/>
+<rect width="1600" height="1100" filter="url(#agh61gzgrain)" opacity="0.1" style="mix-blend-mode:overlay"/>
+</svg>

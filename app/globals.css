@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #07070a;
+  --color-deep: #0c0d12;
+  --color-panel: #12141b;
+  --color-line: #1e212b;
+  --color-fog: #8b90a3;
+  --color-white-warm: #f4f5f8;
+  --color-electric: #6c5cff;
+  --color-cyan: #3ddbd9;
+  --color-amber: #ffb547;
+
+  --font-display: var(--font-display-stack);
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-mono-stack);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+}
+
+:root {
+  --font-display-stack: var(--font-display-loaded), "Helvetica Neue", Arial, sans-serif;
+  --font-sans-stack: var(--font-sans-loaded), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono-stack: var(--font-mono-loaded), ui-monospace, "SF Mono", Menlo, monospace;
+  --nav-h: 72px;
+}
+
+* {
+  border-color: color-mix(in oklab, var(--color-white-warm) 9%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-white-warm);
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Typography ------------------------------------------------------------- */
+.display-hero {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+  font-size: clamp(2.75rem, 7.2vw, 6.75rem);
+}
+
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Gradient text used once, on the hero's accent line ---------------------- */
+.accent-text {
+  background: linear-gradient(100deg, var(--color-electric), var(--color-cyan) 55%, var(--color-amber));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Fine technical grid backdrop -------------------------------------------- */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-white-warm) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-white-warm) 4%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Panel with a hairline top edge ------------------------------------------ */
+.panel {
+  background: var(--color-panel);
+  border: 1px solid color-mix(in oklab, var(--color-white-warm) 8%, transparent);
+}
+
+/* Focus ------------------------------------------------------------------- */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-electric) 55%, transparent);
+  color: var(--color-white-warm);
+}
+
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-deep);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-electric);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Custom cursor is desktop-only and opt-in via pointer:fine --------------- */
+@media (pointer: fine) {
+  .cursor-host {
+    cursor: none;
+  }
+  .cursor-host a,
+  .cursor-host button,
+  .cursor-host [role="button"],
+  .cursor-host input,
+  .cursor-host textarea,
+  .cursor-host select {
+    cursor: none;
+  }
+}
