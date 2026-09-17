@@ -1,67 +1,46 @@
-import { Reveal, SplitText } from "@/components/motion/reveal";
 import { Section } from "@/components/ui/primitives";
 
+/**
+ * Short on purpose. An interviewer scans this in a few seconds before moving on
+ * to the work, so it carries three things and nothing else: what he does, where
+ * he studies, and enough context to judge the projects below.
+ *
+ * Only facts verifiable from the work itself — nothing about employers,
+ * clients, years of experience or awards, because none of that exists yet.
+ */
 const FACTS = [
-  { k: "Based in", v: "India · working remotely" },
-  { k: "Focus", v: "Full-stack web apps, interface & motion, AI/ML features" },
-  { k: "Stack", v: "TypeScript, React, Next.js, Node, MongoDB, Python" },
-  { k: "Availability", v: "Open to freelance and full-time work" },
+  { k: "Studying", v: "B.Tech, Computer Science and Engineering" },
+  { k: "Institute", v: "Vishnu Institute of Technology, Bhimavaram" },
+  { k: "Years", v: "2024 – 2028" },
+  { k: "Based in", v: "Andhra Pradesh, India" },
 ] as const;
 
 export function About() {
   return (
-    <Section id="about" eyebrow="About">
-      <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
+    <Section id="about" eyebrow="About" index="01">
+      <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
         <div>
-          <SplitText
-            inView
-            as="h2"
-            text="I build the parts of a product that decide whether it works."
-            className="display-xl max-w-[18ch] text-balance"
-          />
-
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-fog">
-            <Reveal delay={0.05}>
-              <p>
-                Most of what makes software feel trustworthy is invisible: validation that runs on
-                both sides of the wire, permissions the client cannot talk its way past, prices the
-                server recalculates instead of believing, and failure paths that were designed
-                rather than discovered.
-              </p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p>
-                That is the work I like. The five applications in this portfolio were built to prove
-                it — each one is a complete product with a real data layer, not a landing page with
-                a form that goes nowhere. Each has its own visual identity too, because a bakery and
-                a payment-heavy store should not feel like the same template with the colours
-                swapped.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <p>
-                Alongside that I work with AI/ML: embeddings, retrieval and evaluation — the kind of
-                feature that has to be measured to be worth shipping.
-              </p>
-            </Reveal>
-          </div>
+          <h2 className="display-xl max-w-[20ch] text-balance text-ink">
+            I build machine-learning systems end to end.
+          </h2>
+          <p className="mt-7 max-w-[56ch] text-[1.0625rem] leading-relaxed text-muted">
+            Not notebooks &mdash; complete applications. A trained model, an API in front of it, a
+            database, an interface, and a Docker image running in production. The four below are
+            deployed, open-source, and tested on every push.
+          </p>
         </div>
 
-        <Reveal delay={0.1}>
-          <dl className="panel divide-y divide-white-warm/8 rounded-xl">
-            {FACTS.map((fact) => (
-              <div key={fact.k} className="flex flex-col gap-1 p-6 sm:flex-row sm:items-baseline sm:gap-6">
-                <dt className="eyebrow w-32 shrink-0 text-fog">{fact.k}</dt>
-                <dd className="text-sm text-white-warm">{fact.v}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <p className="mt-6 text-xs leading-relaxed text-fog">
-            Everything described on this site was built by me in this repository. The businesses are
-            fictional and used as realistic briefs — no client work is claimed.
-          </p>
-        </Reveal>
+        <dl className="border-t border-rule">
+          {FACTS.map((fact) => (
+            <div
+              key={fact.k}
+              className="flex flex-col gap-1 border-b border-rule py-4 sm:flex-row sm:items-baseline sm:gap-6"
+            >
+              <dt className="mono w-28 shrink-0 text-[0.75rem] text-muted">{fact.k}</dt>
+              <dd className="text-[0.9375rem] text-ink">{fact.v}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </Section>
   );

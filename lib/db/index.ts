@@ -11,9 +11,10 @@ export type MessageDoc = BaseDoc & {
   name: string;
   email: string;
   company?: string;
-  projectType: string;
-  budget: string;
-  timeline: string;
+  /** Optional: the contact form no longer collects these. */
+  projectType?: string;
+  budget?: string;
+  timeline?: string;
   message: string;
   status: "new" | "read" | "replied";
 };
@@ -23,9 +24,9 @@ const messagePaths = {
   name: { type: String, required: true },
   email: { type: String, required: true, index: true },
   company: { type: String },
-  projectType: { type: String, required: true, index: true },
-  budget: { type: String, required: true },
-  timeline: { type: String, required: true },
+  projectType: { type: String, index: true },
+  budget: { type: String },
+  timeline: { type: String },
   message: { type: String, required: true },
   status: { type: String, required: true, default: "new", index: true },
 };

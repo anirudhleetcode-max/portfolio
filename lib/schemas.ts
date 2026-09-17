@@ -34,13 +34,18 @@ export const contactSchema = z.object({
   name: z.string().trim().min(2, "Please tell me your name.").max(80),
   email: z.string().trim().toLowerCase().email("That email address does not look right."),
   company: z.string().trim().max(120).optional().or(z.literal("")),
-  projectType: z.enum(PROJECT_TYPES, { required_error: "Pick the closest match." }),
-  budget: z.enum(BUDGETS, { required_error: "Pick a range — it only sets expectations." }),
-  timeline: z.enum(TIMELINES, { required_error: "Pick a rough timeline." }),
+  /**
+   * Optional. The contact form no longer asks for these — a budget dropdown is
+   * the wrong question for an internship enquiry — but the fields are kept so
+   * stored submissions and any future enquiry form still validate.
+   */
+  projectType: z.enum(PROJECT_TYPES).optional(),
+  budget: z.enum(BUDGETS).optional(),
+  timeline: z.enum(TIMELINES).optional(),
   message: z
     .string()
     .trim()
-    .min(20, "A couple of sentences about the project, please — at least 20 characters.")
+    .min(20, "A couple of sentences, please — at least 20 characters.")
     .max(4000, "That is longer than this form accepts. Email me instead."),
 });
 

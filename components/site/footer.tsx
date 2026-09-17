@@ -1,4 +1,3 @@
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import { PROJECTS } from "@/lib/projects";
 
@@ -6,31 +5,30 @@ const YEAR = "2026";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white-warm/10 bg-deep">
-      <div className="mx-auto w-full max-w-[1320px] px-5 py-16 sm:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="border-t border-rule">
+      <div className="mx-auto w-full max-w-[1200px] px-5 py-16 sm:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr]">
           <div>
-            <p className="eyebrow text-fog">Anirudh</p>
-            <p className="display-md mt-4 max-w-sm text-balance">
-              Full-stack developer building web applications that hold up in production.
+            <p className="font-display text-[1.125rem] text-ink">Anirudh</p>
+            <p className="serif mt-3 max-w-xs text-[1.125rem] text-muted">
+              Built with curiosity and care.
             </p>
             <a
-              href="mailto:anirudhleetcode@gmail.com"
-              className="mt-6 inline-flex items-center gap-2 text-sm text-fog transition-colors hover:text-white-warm"
+              href="mailto:anirudhmalladi2007@gmail.com"
+              className="prose-link mt-6 inline-block text-[0.9375rem]"
             >
-              <Mail size={15} />
-              anirudhleetcode@gmail.com
+              anirudhmalladi2007@gmail.com
             </a>
           </div>
 
           <div>
-            <p className="eyebrow text-fog">Work</p>
+            <p className="mono text-[0.75rem] text-muted">Work</p>
             <ul className="mt-4 space-y-2.5">
               {PROJECTS.map((project) => (
                 <li key={project.slug}>
                   <Link
                     href={`/work/${project.slug}`}
-                    className="text-sm text-fog transition-colors hover:text-white-warm"
+                    className="link-underline text-[0.9375rem] text-muted transition-colors hover:text-ink"
                   >
                     {project.name}
                   </Link>
@@ -40,37 +38,45 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="eyebrow text-fog">Elsewhere</p>
+            <p className="mono text-[0.75rem] text-muted">Elsewhere</p>
             <ul className="mt-4 space-y-2.5">
               <li>
                 <a
-                  href="https://github.com/anirudhleetcode-max/paperlens-retriever"
+                  href="https://github.com/anirudhleetcode-max"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-fog transition-colors hover:text-white-warm"
+                  className="link-underline text-[0.9375rem] text-muted transition-colors hover:text-ink"
                 >
-                  <Github size={15} /> GitHub <ArrowUpRight size={13} />
+                  GitHub
                 </a>
               </li>
               <li>
-                <span className="inline-flex items-center gap-2 text-sm text-fog/60">
-                  <Linkedin size={15} /> LinkedIn — not linked yet
-                </span>
+                <a
+                  href="https://www.linkedin.com/in/anirudh-malladi-928651319"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="link-underline text-[0.9375rem] text-muted transition-colors hover:text-ink"
+                >
+                  LinkedIn
+                </a>
               </li>
               <li>
-                <Link href="/#contact" className="text-sm text-fog transition-colors hover:text-white-warm">
-                  Contact form
+                <Link
+                  href="/#contact"
+                  className="link-underline text-[0.9375rem] text-muted transition-colors hover:text-ink"
+                >
+                  Contact
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-white-warm/10 pt-6 text-xs text-fog sm:flex-row sm:items-center sm:justify-between">
-          <p className="mono">© {YEAR} Anirudh. Built with Next.js, TypeScript and Tailwind.</p>
-          <p className="mono max-w-xl sm:text-right">
-            The five businesses in this portfolio are fictional demos. No live deployments, no real
-            clients and no real transactions are claimed anywhere on this site.
+        <div className="mono mt-14 flex flex-col gap-3 border-t border-rule pt-6 text-[0.75rem] text-muted sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {YEAR} Anirudh Malladi</p>
+          <p className="max-w-xl sm:text-right">
+            Every figure on this site came from the project&rsquo;s own evaluation. No client work is
+            claimed, and results that are unflattering are shown alongside the rest.
           </p>
         </div>
       </div>

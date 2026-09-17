@@ -21,13 +21,13 @@ export function Field({
 }) {
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      <label htmlFor={htmlFor} className="eyebrow text-fog">
+      <label htmlFor={htmlFor} className="eyebrow text-muted">
         {label}
       </label>
       {children}
-      {hint && !error && <p className="text-xs text-fog/70">{hint}</p>}
+      {hint && !error && <p className="text-xs text-muted">{hint}</p>}
       {error && (
-        <p id={`${htmlFor}-error`} role="alert" className="text-xs text-amber">
+        <p id={`${htmlFor}-error`} role="alert" className="text-xs text-accent">
           {error}
         </p>
       )}
@@ -36,7 +36,7 @@ export function Field({
 }
 
 const control =
-  "w-full rounded-md border border-white-warm/12 bg-white-warm/[0.03] px-4 py-3 text-sm text-white-warm placeholder:text-fog/50 transition-colors focus:border-cyan/60 focus:outline-none";
+  "w-full rounded-md border border-rule bg-surface px-4 py-3 text-sm text-ink placeholder:text-muted transition-colors focus:border-ink focus:outline-none";
 
 export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   function Input({ className, ...props }, ref) {
@@ -56,7 +56,7 @@ export const Select = React.forwardRef<
   React.SelectHTMLAttributes<HTMLSelectElement>
 >(function Select({ className, children, ...props }, ref) {
   return (
-    <select ref={ref} className={cn(control, "appearance-none bg-panel", className)} {...props}>
+    <select ref={ref} className={cn(control, "appearance-none bg-surface", className)} {...props}>
       {children}
     </select>
   );

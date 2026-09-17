@@ -249,68 +249,6 @@ export const SKILL_GROUPS = [
 
 /* -------------------------------------------------------------------------- */
 /* Services                                                                    */
-/* -------------------------------------------------------------------------- */
-
-export const SERVICES = [
-  {
-    title: "Business websites",
-    body: "Marketing sites for small businesses that need to look considered and load quickly — built to be edited, not admired once and abandoned.",
-    points: ["Design and build", "CMS or admin dashboard", "SEO groundwork", "Analytics setup"],
-  },
-  {
-    title: "Web applications",
-    body: "Booking, ordering, enquiry and account systems. The parts that decide whether a site is useful: validation, state, permissions and edge cases.",
-    points: ["Auth and roles", "API and data modelling", "Payments", "Admin tooling"],
-  },
-  {
-    title: "Interface & motion",
-    body: "Interaction design with a performance budget — 3D and motion used where it earns its place, and switched off where it does not.",
-    points: ["Design systems", "3D scenes", "Scroll interaction", "Reduced-motion support"],
-  },
-  {
-    title: "AI/ML features",
-    body: "Retrieval, search and classification features integrated into real products, with evaluation rather than vibes.",
-    points: ["Embeddings & retrieval", "Evaluation harnesses", "Model integration", "Data pipelines"],
-  },
-] as const;
-
-/* -------------------------------------------------------------------------- */
-/* Process                                                                     */
-/* -------------------------------------------------------------------------- */
-
-export const PROCESS = [
-  {
-    step: "01",
-    title: "Understand",
-    body: "What the business actually needs the site to do, and what it currently costs when it does not. Usually a conversation, not a brief.",
-  },
-  {
-    step: "02",
-    title: "Shape",
-    body: "Scope, structure and a flat quote before any design work. If something on the list will not pay for itself, I say so here.",
-  },
-  {
-    step: "03",
-    title: "Design",
-    body: "Layouts, type and interaction in the browser rather than a static mockup, so decisions are made against real content.",
-  },
-  {
-    step: "04",
-    title: "Build",
-    body: "Typed end to end, validated on both sides of the wire, with the edge cases handled rather than deferred.",
-  },
-  {
-    step: "05",
-    title: "Verify",
-    body: "Driven in a real browser: responsive widths, forms, permissions and failure paths. Bugs get fixed at the source, not papered over.",
-  },
-  {
-    step: "06",
-    title: "Hand over",
-    body: "Documentation, environment setup and a walkthrough — including an honest list of what is not built yet.",
-  },
-] as const;
-
 /**
  * Each project now has its own public repository, so `repoUrl` on a project is
  * the link to use. `REPO_URL` remains the profile-level fallback for anything

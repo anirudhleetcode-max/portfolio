@@ -1,29 +1,35 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** Section shell: consistent rhythm, an id for the nav anchors, and a label. */
+/**
+ * Section shell. Each section opens with a hairline rule carrying a small
+ * number and label, which is what gives the page its editorial rhythm — the
+ * numbering is real (sections run in order), not decoration.
+ */
 export function Section({
   id,
   eyebrow,
+  index,
   className,
   children,
 }: {
   id?: string;
   eyebrow?: string;
+  index?: string;
   className?: string;
   children: React.ReactNode;
 }) {
   return (
     <section
       id={id}
-      className={cn("relative scroll-mt-[calc(var(--nav-h)+16px)] py-24 sm:py-32", className)}
+      className={cn("relative scroll-mt-[calc(var(--nav-h)+16px)] py-20 sm:py-28", className)}
     >
-      <div className="mx-auto w-full max-w-[1320px] px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-[1200px] px-5 sm:px-8">
         {eyebrow && (
-          <p className="eyebrow mb-10 flex items-center gap-3 text-fog">
-            <span className="h-px w-8 bg-white-warm/25" />
-            {eyebrow}
-          </p>
+          <div className="section-rule mb-12 flex items-baseline gap-4 pt-4">
+            {index && <span className="mono text-[0.75rem] text-accent">{index}</span>}
+            <span className="mono text-[0.75rem] text-muted">{eyebrow}</span>
+          </div>
         )}
         {children}
       </div>
@@ -35,7 +41,7 @@ export function Pill({ children, className }: { children: React.ReactNode; class
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full border border-white-warm/12 bg-white-warm/[0.04] px-3 py-1 text-xs text-fog",
+        "mono inline-flex items-center border border-rule px-2.5 py-1 text-[0.75rem] text-muted",
         className,
       )}
     >
@@ -46,20 +52,19 @@ export function Pill({ children, className }: { children: React.ReactNode; class
 
 /** The single phrase used wherever a project's deployment status is shown. */
 export const statusLabel = (href: string | null) =>
-  href ? "Live · deployed" : "Local demo · deployment pending";
+  href ? "Live" : "Local demo · deployment pending";
 
 /**
- * The live-demo control. `liveUrl` is null for every project in this portfolio
- * because none of them is deployed, so this renders a disabled "Local demo"
- * state rather than a link that goes nowhere. It only becomes a real anchor if
- * an actual URL is ever added to `lib/projects.ts`.
+ * The live-demo control. Every project in this portfolio now has a verified
+ * production URL, but the null branch is kept: if a deployment is ever taken
+ * down and its variable cleared, the UI says so rather than linking nowhere.
  */
 export function LiveDemoButton({ href, className }: { href: string | null; className?: string }) {
   if (!href) {
     return (
       <span
         className={cn(
-          "inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-dashed border-white-warm/20 px-4 py-2 text-sm text-fog/80",
+          "mono inline-flex cursor-not-allowed items-center gap-2 border border-dashed border-rule px-4 py-2 text-[0.8125rem] text-muted",
           className,
         )}
         title="Not deployed — run it locally from the repository"
@@ -74,37 +79,43 @@ export function LiveDemoButton({ href, className }: { href: string | null; class
       target="_blank"
       rel="noreferrer"
       className={cn(
-        "inline-flex items-center gap-2 rounded-full bg-white-warm px-4 py-2 text-sm font-medium text-void transition-transform hover:scale-[1.03]",
+        "inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-[0.875rem] font-medium text-paper transition-colors duration-200 hover:bg-accent",
         className,
       )}
     >
-      Live demo
+      View project
+      <span aria-hidden="true">&#8599;</span>
     </a>
   );
 }
 
+/**
+ * Projects keep a per-project accent for small marks only. In this palette they
+ * all resolve to the one editorial accent: a portfolio reads as one voice, and
+ * three competing hues was the previous design's tell.
+ */
 const ACCENT_TEXT = {
-  electric: "text-electric",
-  cyan: "text-cyan",
-  amber: "text-amber",
+  electric: "text-accent",
+  cyan: "text-accent",
+  amber: "text-accent",
 } as const;
 
 const ACCENT_BORDER = {
-  electric: "border-electric/40",
-  cyan: "border-cyan/40",
-  amber: "border-amber/40",
+  electric: "border-rule",
+  cyan: "border-rule",
+  amber: "border-rule",
 } as const;
 
 const ACCENT_DOT = {
-  electric: "bg-electric",
-  cyan: "bg-cyan",
-  amber: "bg-amber",
+  electric: "bg-accent",
+  cyan: "bg-accent",
+  amber: "bg-accent",
 } as const;
 
 const ACCENT_GLOW = {
-  electric: "from-electric/25",
-  cyan: "from-cyan/25",
-  amber: "from-amber/25",
+  electric: "from-transparent",
+  cyan: "from-transparent",
+  amber: "from-transparent",
 } as const;
 
 export type Accent = keyof typeof ACCENT_TEXT;

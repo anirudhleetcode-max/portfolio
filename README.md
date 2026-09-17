@@ -1,14 +1,13 @@
 # Anirudh — portfolio
 
-The portfolio site for the five applications in `portfolio-suite/`. Dark,
-technical and motion-led: a WebGL hero, scroll-driven reveals, a desktop cursor,
-per-project case studies, and a contact form that is actually wired to a
-database rather than to nothing.
+A personal portfolio for four deployed machine-learning systems: **ScamShield**,
+**SpendLens**, **FormFit** and **NutriSnap**. Light and editorial rather than
+dark and motion-led — the work is the subject, and the interface tries to stay
+out of its way.
 
-**Status: local demo. This site is not deployed** — there is no hosted URL, and
-none is claimed anywhere in the UI. Every project card and case study shows
-*"Local demo · deployment pending"* instead of a link, because inventing one
-would be a lie the visitor cannot check.
+**Status: not deployed.** The site runs locally. The four projects it links to
+*are* live, and every one of those URLs was fetched and verified rather than
+assumed.
 
 ---
 
@@ -36,9 +35,10 @@ Everything is optional. See `.env.example`.
 | `NEXT_PUBLIC_SITE_URL` | Origin for `metadataBase`, Open Graph, robots and sitemap | `http://localhost:3000` |
 | `MONGODB_URI` | Switches persistence from the JSON file store to MongoDB | unset → JSON file store in `./.data` |
 | `MONGODB_DB` | Database name when `MONGODB_URI` is set | driver default |
+| `NEXT_PUBLIC_LIVE_URL_*` | Overrides a project's live URL (`SCAMSHIELD`, `SPENDLENS`, `FORMFIT`, `NUTRISNAP`) | the verified production alias |
 
-No secrets are required to run this site, and none are committed. `.env.local`
-and `.data/` are both git-ignored.
+No secrets are required to run this site, and none are committed. `.env*` and
+`.data/` are git-ignored.
 
 ---
 
@@ -46,12 +46,12 @@ and `.data/` are both git-ignored.
 
 | Route | What it is |
 | --- | --- |
-| `/` | The single-page portfolio: hero, about, capabilities, work, case-study strip, services, process, contact |
-| `/work/[slug]` | A case study per project — brief, approach, what was verified in a browser, and what it deliberately does not do |
+| `/` | The single page: hero, about, work, skills, contact |
+| `/work/[slug]` | A case study per project — brief, approach, what was verified, and what it deliberately does not do |
 | `/api/contact` | `POST` — validates with Zod and stores the message |
 | `/robots.txt`, `/sitemap.xml` | Generated from the project list |
 
-Five case studies are statically generated (`dynamicParams = false`), so an
+Four case studies are statically generated (`dynamicParams = false`), so an
 unknown slug is a real 404 rather than a soft one.
 
 ---
@@ -62,94 +62,65 @@ unknown slug is a real 404 rather than a soft one.
 | --- | --- |
 | Framework | Next.js 15 (App Router), React 19, TypeScript (strict) |
 | Styling | Tailwind CSS v4 (CSS-first `@theme` tokens, no config file) |
-| Animation | Framer Motion |
-| 3D | three.js, @react-three/fiber |
+| Type | Inter (structure), Cormorant Garamond (two personal lines), IBM Plex Mono (metadata) |
+| Animation | Framer Motion — a short hero entrance and in-view reveals, nothing more |
 | Icons | lucide-react |
 | Forms | react-hook-form + `@hookform/resolvers` |
 | Validation | Zod — the same schema on the client and in the route handler |
 | Database | JSON file store by default; MongoDB/Mongoose when `MONGODB_URI` is set |
-| Imagery | Original procedurally-generated SVG art (`scripts/generate-art.mjs`) |
+| Imagery | Screenshots captured from the four deployed applications |
 
 | Command | Does |
 | --- | --- |
 | `pnpm dev` / `build` / `start` | Development · production build · serve |
 | `pnpm typecheck` | `tsc --noEmit` |
 | `pnpm lint` | ESLint |
-| `pnpm art` | Regenerate the SVG artwork in `public/art` |
 
 ---
 
-## Design and motion notes
+## Design notes
 
-- **One hero object, everywhere else restraint.** The 3D scene is an icosahedral
-  lattice with a glowing core and a particle shell. It is code-split, mounted
-  only while the hero is on screen, quality-tiered by screen size and core
-  count, and skipped entirely for `prefers-reduced-motion` or a browser without
-  WebGL. An error boundary around the canvas falls back to a static composition
-  rather than taking the page down.
+- **The person comes before the technology.** The first screen is a name, a
+  photograph and one plain sentence. Machine learning is described where it is
+  relevant, not used as the opening statement.
+- **Restraint over effects.** There is no WebGL, no custom cursor, no scroll
+  progress bar and no parallax. What remains is a sub-second hero entrance,
+  in-view text reveals and hover underlines.
+- **Essential content never waits on an observer.** Project screenshots render
+  unconditionally. An earlier clip-path reveal left all four images clipped to
+  zero height when its IntersectionObserver did not fire, which is exactly the
+  failure mode worth avoiding on the part of the page that matters most.
 - **Reduced motion never changes the DOM.** `useReducedMotion()` returns `null`
-  during SSR and the real value after mount, so branching markup or `initial`
-  state on it causes a hydration mismatch (React error #418). Every motion
-  primitive here renders identical elements either way and expresses reduced
-  motion purely through the transition.
-- **The custom cursor is opt-in per device.** The native cursor is only hidden
-  after a `(pointer: fine)` match is confirmed in an effect, so a touch user
-  never loses their pointer.
-- **Interactions**: page transitions, scroll progress bar, nav that hides on
-  scroll-down and returns on scroll-up, magnetic CTAs, word-by-word text
-  reveals, clip-path image reveals, staggered section entrances, and subtle
-  parallax on the case-study artwork.
+  during SSR and the real value after mount, so branching markup on it causes a
+  hydration mismatch. Motion primitives render identical elements either way and
+  express reduced motion through the transition only.
 
 ---
 
 ## Honesty rules this site follows
 
-- No live URLs are invented. `liveUrl` is `null` for all five projects, and the
-  UI renders a disabled "Local demo · deployment pending" control.
-- No client work is claimed. The five businesses are fictional briefs.
-- No fabricated metrics, testimonials, star counts or download numbers appear
-  anywhere.
-- Each case study's *"Verified in a browser"* list describes checks that were
-  actually run against a production build of that project, and each carries a
-  *"What this does not do"* list.
-- The only external link on the site is the repository it lives in.
+- **No URL is invented.** Each project's `liveUrl` falls back to the production
+  alias reported by Vercel for that project, and each was fetched and confirmed
+  to serve the application rather than a sign-in page. If a value cannot be
+  verified it is `null` and the UI says so instead of linking nowhere.
+- **No fabricated metrics.** Every figure shown came from that project's own
+  evaluation scripts or was observed against the live deployment.
+- **The unflattering results are shown too** — the synthetic-to-real transfer
+  gap, the line items that do not extract, the dish the model gets wrong, and
+  the classifier trained on simulated data.
+- **No employers, clients, years of experience or awards are claimed**, because
+  none exist yet.
 
 ---
 
 ## Known limitations
 
-- **Not deployed.** Local only.
+- **This site is not deployed.** Local only. The four projects it links to are.
 - **No email delivery.** A contact submission is validated and stored; no SMTP
-  or transactional-email provider is connected, and the UI says so on the form.
+  or transactional-email provider is connected.
 - **No admin view for messages.** Submissions land in `./.data/messages.json`
   (or MongoDB) and are read from there.
 - **No rate limiting or CAPTCHA** on `/api/contact`, and no CSRF token beyond
-  same-origin defaults. Fine for a local demo; add both before exposing it.
-- **No automated test suite.** Verification was done by driving a production
-  build with Playwright plus direct API calls — see below.
-
----
-
-## Verification performed
-
-Run against `pnpm build && pnpm start`, driven with Playwright (Chromium) and
-`curl`. This section records what was actually executed.
-
-| Check | Result |
-| --- | --- |
-| Routes | `/`, five `/work/[slug]` pages, `/robots.txt`, `/sitemap.xml` → 200; `/nope` and `/work/nope` → real 404 |
-| Responsive sweep | 7 routes × 7 widths (360 → 1920), in both `prefers-reduced-motion` states |
-| Horizontal overflow | `scrollWidth − clientWidth` measured at every width |
-| Console | Page errors, console errors and ≥400 responses collected on every load |
-| Hero copy | Rendered headline checked against the intended text |
-| Live-link honesty | Every project card shows the local-demo state; every external link asserted against an allow-list of one (the repository) |
-| Artwork | All images resolve — no broken `naturalWidth === 0` |
-| Navigation | Header link, project-card link, case-study "next project" link |
-| Mobile | Menu opens at 390px, navigates, closes afterwards; the native cursor is **not** hidden on a touch device |
-| Contact form | Empty submit blocked; bad email and short message surface field errors; a valid submission returns a `MSG-…` reference |
-| Contact API | Malformed JSON → 400; invalid payload → 422; unknown enum value → 422; valid → 201 and persisted |
-| Reduced motion | Home renders with the hero visible and **zero** hydration or console errors |
-
-Results are recorded in the pull request for this branch rather than copied here
-as prose, so this table stays a description of the checks and not a claim about
-a run you cannot see.
+  same-origin defaults. Add both before exposing it publicly.
+- **No automated test suite.** Verification is `pnpm typecheck`, `pnpm lint`,
+  `pnpm build`, and driving a production build in a browser.

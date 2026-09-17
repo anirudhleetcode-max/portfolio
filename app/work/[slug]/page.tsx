@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Github } from "lucide-react";
-import { Reveal, SplitText } from "@/components/motion/reveal";
-import { ImageReveal } from "@/components/motion/parallax";
+import Image from "next/image";
 import { LiveDemoButton, Pill, accentDot, accentText, statusLabel } from "@/components/ui/primitives";
-import { CASE_STUDIES, PROJECTS, REPO_URL, getProject } from "@/lib/projects";
+import { CASE_STUDIES, PROJECTS, getProject } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
-/** The five case studies are known at build time, and nothing else is valid. */
+/** The four case studies are known at build time, and nothing else is valid. */
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -45,12 +44,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <article className="pt-[var(--nav-h)]">
-      <header className="relative overflow-hidden border-b border-white-warm/8">
-        <div aria-hidden="true" className="grid-bg absolute inset-0 opacity-40" />
+      <header className="relative overflow-hidden border-b border-rule">
+        <div aria-hidden="true" className="absolute inset-0 opacity-40" />
         <div className="relative mx-auto w-full max-w-[1320px] px-5 py-20 sm:px-8 sm:py-28">
           <Link
             href="/#work"
-            className="inline-flex items-center gap-2 text-sm text-fog transition-colors hover:text-white-warm"
+            className="inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
           >
             <ArrowLeft size={15} />
             All work
@@ -59,95 +58,86 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <p className={cn("eyebrow mt-10", accentText(project.accent))}>
             {project.tagline} · {project.year}
           </p>
-          <SplitText as="h1" text={project.name} className="display-hero mt-4" />
-          <p className="mt-8 max-w-2xl text-base leading-relaxed text-fog sm:text-lg">
+          <h1 className="display-hero mt-4 text-ink">{project.name}</h1>
+          <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
             {project.summary}
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-2.5">
             <LiveDemoButton href={project.liveUrl} />
             <a
-              href={REPO_URL}
+              href={project.repoUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white-warm/20 px-4 py-2 text-sm text-white-warm transition-colors hover:border-white-warm/50"
+              className="inline-flex items-center gap-2 border border-rule px-4 py-2 text-sm text-ink transition-colors hover:border-ink"
             >
               <Github size={15} />
               Source
             </a>
-            <span className="mono text-[0.6875rem] break-all text-fog/70">{project.repoPath}</span>
           </div>
         </div>
       </header>
 
       <div className="mx-auto w-full max-w-[1320px] px-5 sm:px-8">
-        <ImageReveal className="overflow-hidden rounded-xl border border-white-warm/10">
-          {/* Generated SVG: served directly, as next/image would not optimise it. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="overflow-hidden border border-rule bg-surface">
+          <Image
             src={project.image}
-            alt={`Generated cover artwork for ${project.name}`}
-            width={1600}
-            height={1100}
-            className="aspect-[16/10] w-full object-cover"
+            alt={`${project.name} running in the browser`}
+            width={1440}
+            height={900}
+            priority
+            sizes="100vw"
+            className="aspect-[16/10] w-full object-cover object-top"
           />
-        </ImageReveal>
+        </div>
 
         <div className="grid gap-14 py-20 lg:grid-cols-[1.25fr_0.75fr] lg:gap-20 lg:py-28">
           <div className="min-w-0 space-y-14">
-            <Reveal>
-              <h2 className="eyebrow text-fog">The brief</h2>
-              <p className="mt-5 text-lg leading-relaxed [overflow-wrap:anywhere] text-white-warm/90">{study?.brief}</p>
-            </Reveal>
+              <h2 className="eyebrow text-muted">The brief</h2>
+              <p className="mt-5 text-lg leading-relaxed [overflow-wrap:anywhere] text-ink">{study?.brief}</p>
 
-            <Reveal>
-              <h2 className="eyebrow text-fog">Approach</h2>
+              <h2 className="eyebrow text-muted">Approach</h2>
               <ul className="mt-5 space-y-4">
                 {study?.approach.map((item) => (
-                  <li key={item} className="flex gap-4 text-base leading-relaxed text-fog">
+                  <li key={item} className="flex gap-4 text-base leading-relaxed text-muted">
                     <span className={cn("mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full", accentDot(project.accent))} />
                     {/* A verbatim token like an HMAC payload has no spaces to break at. */}
                     <span className="min-w-0 [overflow-wrap:anywhere]">{item}</span>
                   </li>
                 ))}
               </ul>
-            </Reveal>
 
-            <Reveal>
-              <h2 className="eyebrow text-fog">Verified in a browser</h2>
-              <p className="mt-3 text-sm text-fog/80">
+              <h2 className="eyebrow text-muted">Verified in a browser</h2>
+              <p className="mt-3 text-sm text-muted">
                 Each line below was exercised against a production build of this project.
               </p>
-              <ul className="mt-5 divide-y divide-white-warm/8 rounded-xl border border-white-warm/10">
+              <ul className="mt-5 divide-y divide-rule rounded-xl border border-rule">
                 {study?.verified.map((item) => (
-                  <li key={item} className="p-5 text-sm leading-relaxed [overflow-wrap:anywhere] text-white-warm/90">
+                  <li key={item} className="p-5 text-sm leading-relaxed [overflow-wrap:anywhere] text-ink">
                     {item}
                   </li>
                 ))}
               </ul>
-            </Reveal>
 
-            <Reveal>
-              <h2 className="eyebrow text-fog">What this does not do</h2>
+              <h2 className="eyebrow text-muted">What this does not do</h2>
               <ul className="mt-5 space-y-3">
                 {study?.limits.map((item) => (
-                  <li key={item} className="flex gap-4 text-sm leading-relaxed text-fog">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-amber" />
+                  <li key={item} className="flex gap-4 text-sm leading-relaxed text-muted">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
                     <span className="min-w-0 [overflow-wrap:anywhere]">{item}</span>
                   </li>
                 ))}
               </ul>
-            </Reveal>
           </div>
 
           <aside className="min-w-0 space-y-8 lg:sticky lg:top-[calc(var(--nav-h)+40px)] lg:self-start">
-            <div className="panel rounded-xl p-6">
-              <h2 className="eyebrow text-fog">Role</h2>
-              <p className="mt-3 text-sm text-white-warm">{project.role}</p>
+            <div className="border border-rule bg-surface rounded-xl p-6">
+              <h2 className="eyebrow text-muted">Role</h2>
+              <p className="mt-3 text-sm text-ink">{project.role}</p>
             </div>
 
-            <div className="panel rounded-xl p-6">
-              <h2 className="eyebrow text-fog">Stack</h2>
+            <div className="border border-rule bg-surface rounded-xl p-6">
+              <h2 className="eyebrow text-muted">Stack</h2>
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {project.stack.map((tech) => (
                   <Pill key={tech}>{tech}</Pill>
@@ -155,22 +145,22 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               </div>
             </div>
 
-            <div className="panel rounded-xl p-6">
-              <h2 className="eyebrow text-fog">Features</h2>
+            <div className="border border-rule bg-surface rounded-xl p-6">
+              <h2 className="eyebrow text-muted">Features</h2>
               <ul className="mt-4 space-y-3">
                 {project.features.map((feature) => (
-                  <li key={feature} className="flex gap-3 text-sm leading-relaxed text-fog">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white-warm/40" />
+                  <li key={feature} className="flex gap-3 text-sm leading-relaxed text-muted">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-surface" />
                     <span>{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="panel rounded-xl p-6">
-              <h2 className="eyebrow text-fog">Status</h2>
-              <p className="mt-3 text-sm text-white-warm">{statusLabel(project.liveUrl)}</p>
-              <p className="mt-2 text-xs leading-relaxed text-fog">
+            <div className="border border-rule bg-surface rounded-xl p-6">
+              <h2 className="eyebrow text-muted">Status</h2>
+              <p className="mt-3 text-sm text-ink">{statusLabel(project.liveUrl)}</p>
+              <p className="mt-2 text-xs leading-relaxed text-muted">
                 {project.liveUrl
                   ? "Deployed and reachable at the link above."
                   : "Runs locally from the repository. No hosted instance exists, so no link is given."}
@@ -180,21 +170,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </div>
       </div>
 
-      <nav aria-label="Next project" className="border-t border-white-warm/8 bg-deep">
+      <nav aria-label="Next project" className="border-t border-rule bg-surface">
         <Link
           href={`/work/${next.slug}`}
           className="group mx-auto flex w-full max-w-[1320px] items-center justify-between gap-6 px-5 py-14 sm:px-8"
         >
           <span>
-            <span className="eyebrow text-fog">Next project</span>
+            <span className="eyebrow text-muted">Next project</span>
             <span className="display-md mt-3 block transition-colors group-hover:text-white">
               {next.name}
             </span>
-            <span className="mt-1 block text-sm text-fog">{next.tagline}</span>
+            <span className="mt-1 block text-sm text-muted">{next.tagline}</span>
           </span>
           <ArrowRight
             size={24}
-            className="shrink-0 text-fog transition-transform duration-300 group-hover:translate-x-1 group-hover:text-white-warm"
+            className="shrink-0 text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-ink"
           />
         </Link>
       </nav>
