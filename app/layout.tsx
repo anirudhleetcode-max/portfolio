@@ -34,13 +34,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Anirudh Malladi — Developer",
+    default: "Anirudh Malladi — AI/ML Developer",
     template: "%s · Anirudh Malladi",
   },
   description:
-    "I'm Anirudh, a computer science student who builds web applications end to end — interface, API, data layer and the edge cases in between. Five complete applications, plus work in machine learning.",
+    "I'm Anirudh, a computer science student who builds machine-learning systems end to end — model, API, data layer and interface. Four deployed applications: ScamShield, SpendLens, FormFit and NutriSnap.",
   keywords: [
     "Anirudh Malladi",
+    "AI/ML portfolio",
+    "machine learning engineer",
     "developer portfolio",
     "Next.js developer",
     "React developer",
@@ -53,15 +55,15 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Anirudh Malladi",
-    title: "Anirudh Malladi — Developer",
+    title: "Anirudh Malladi — AI/ML Developer",
     description:
-      "I build web applications end to end — interface, API, data layer and the edge cases in between.",
+      "Four deployed machine-learning systems, built end to end — model, API, data layer and interface.",
     images: [{ url: "/art/og-cover.svg", width: 1200, height: 630, alt: "Anirudh Malladi — developer" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anirudh Malladi — Developer",
-    description: "I build web applications end to end.",
+    title: "Anirudh Malladi — AI/ML Developer",
+    description: "Four deployed machine-learning systems, built end to end.",
     images: ["/art/og-cover.svg"],
   },
   robots: { index: true, follow: true },
