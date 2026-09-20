@@ -5,9 +5,9 @@ A personal portfolio for four deployed machine-learning systems: **ScamShield**,
 dark and motion-led — the work is the subject, and the interface tries to stay
 out of its way.
 
-**Status: not deployed.** The site runs locally. The four projects it links to
-*are* live, and every one of those URLs was fetched and verified rather than
-assumed.
+**Status: deployed** at <https://portfolio-anirudh-ed2c.vercel.app> on Vercel.
+The four projects it links to *are* live, and every one of those URLs was
+fetched and verified rather than assumed.
 
 ---
 

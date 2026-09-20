@@ -38,9 +38,9 @@ export function Hero() {
             </motion.h1>
 
             <motion.p {...rise(0.2)} className="lede mt-7 max-w-[46ch]">
-              I&rsquo;m a developer who enjoys turning ideas into well-designed, functional
-              products. I build the whole thing &mdash; the interface, the API behind it, the data
-              model underneath, and the awkward edge cases most demos quietly skip.
+              I build machine-learning systems end to end &mdash; the model, the API in front of
+              it, the data model underneath, the interface, and the awkward edge cases most demos
+              quietly skip.
             </motion.p>
 
             <motion.div {...rise(0.28)} className="mt-9 flex flex-wrap items-center gap-3">

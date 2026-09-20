@@ -24,6 +24,22 @@ export function Featured() {
         </p>
       </div>
 
+      {/* The scope of the four projects, stated once: when they were built and
+          that one person built them. Set in the same mono meta type as the hero
+          strip, so it reads as a caption on the work rather than a claim. */}
+      <ul className="mono mt-9 flex flex-wrap gap-x-7 gap-y-2 border-t border-rule pt-5 text-[0.75rem] text-muted">
+        {/* items-start, not items-center: this line wraps on a phone, and a
+            centred dot drifts to the line break. */}
+        <li className="flex items-start gap-2">
+          <span
+            aria-hidden="true"
+            className="mt-[0.45em] inline-block h-[5px] w-[5px] shrink-0 rounded-full bg-accent"
+          />
+          Independent project development &middot; May 2026 &mdash; September 2026
+        </li>
+        <li>Solo developer &middot; end-to-end</li>
+      </ul>
+
       <div className="mt-16 space-y-20 sm:space-y-28">
         {PROJECTS.map((project, index) => {
           const flipped = index % 2 === 1;
@@ -62,9 +78,19 @@ export function Featured() {
                   <h3 className="display-md mt-3 text-balance text-ink">{project.name}</h3>
                   <p className="mt-2 text-[1.0625rem] text-muted">{project.tagline}</p>
 
-                  <p className="mt-5 max-w-[56ch] text-[0.9375rem] leading-relaxed text-muted">
-                    {project.summary}
-                  </p>
+                  {/* Two or three single lines rather than a paragraph: the
+                      hierarchy is name, what it is, how it works, then the
+                      links — readable in the seconds an interviewer gives it. */}
+                  <ul className="mt-5 max-w-[56ch] space-y-2">
+                    {project.points.map((point) => (
+                      <li
+                        key={point}
+                        className="relative pl-5 text-[0.9375rem] leading-relaxed text-muted before:absolute before:left-0 before:top-[0.6875em] before:h-px before:w-2.5 before:bg-rule before:content-['']"
+                      >
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
 
                   {/* Measured figures, set as data rather than as badges. */}
                   <dl className="mt-7 grid grid-cols-2 border-t border-l border-rule sm:grid-cols-4">

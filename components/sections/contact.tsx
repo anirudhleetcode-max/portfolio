@@ -72,14 +72,6 @@ export function Contact() {
               </dd>
             </div>
             <div className="flex flex-col gap-1 border-b border-rule py-4 sm:flex-row sm:items-baseline sm:gap-6">
-              <dt className="mono w-20 shrink-0 text-[0.75rem] text-muted">Phone</dt>
-              <dd>
-                <a className="prose-link text-[0.9375rem]" href="tel:+919963511576">
-                  +91 99635 11576
-                </a>
-              </dd>
-            </div>
-            <div className="flex flex-col gap-1 border-b border-rule py-4 sm:flex-row sm:items-baseline sm:gap-6">
               <dt className="mono w-20 shrink-0 text-[0.75rem] text-muted">Elsewhere</dt>
               <dd className="flex flex-wrap gap-x-5 gap-y-1">
                 <a

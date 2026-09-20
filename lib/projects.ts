@@ -57,6 +57,14 @@ export type Project = {
   name: string;
   tagline: string;
   summary: string;
+  /**
+   * The card version of `summary`: two or three single-line statements — what
+   * it does, the technical idea behind it, and one capability that is actually
+   * built. Each one restates something already verified elsewhere in this file;
+   * none introduces a claim of its own. `summary` is kept for the case-study
+   * page and for page metadata, where a prose sentence still reads better.
+   */
+  points: string[];
   role: string;
   year: string;
   /** null until an actual deployment exists. Never invent a URL. */
@@ -86,6 +94,11 @@ export const PROJECTS: Project[] = [
     tagline: "Fraud checker for Indian SMS, UPI IDs and payment links",
     summary:
       "Paste a suspicious message and it returns a 0-100 risk score, the phrases that drove it, a red-flag checklist, and — when the evidence is thin — an explicit refusal to decide.",
+    points: [
+      "Checks Indian SMS, UPI IDs and payment links for fraud and returns a 0–100 risk score.",
+      "TF-IDF word and character n-grams into a calibrated logistic regression, fused with a red-flag rule engine by noisy-OR.",
+      "Abstains outright when the message is too short or falls inside the uncertain band, instead of guessing.",
+    ],
     role: "Research, model, API, interface",
     year: "2026",
     liveUrl: LIVE.scamshield,
@@ -119,6 +132,11 @@ export const PROJECTS: Project[] = [
     tagline: "Receipt photographs into categorised expenses",
     summary:
       "Photograph a bill and it deskews the paper, reads it twice, parses each field with its own confidence, then checks the totals against their own arithmetic before anything is saved.",
+    points: [
+      "Turns a photograph of a paper receipt into a categorised expense.",
+      "OpenCV deskewing, then two parallel Tesseract passes, keeping the read with the higher mean word confidence.",
+      "Every field carries its own confidence, and totals are re-checked against their line items before anything is saved.",
+    ],
     role: "Pipeline, model, API, interface",
     year: "2026",
     liveUrl: LIVE.spendlens,
@@ -152,6 +170,11 @@ export const PROJECTS: Project[] = [
     tagline: "A webcam coach that counts reps and reads form",
     summary:
       "Pose estimation runs entirely in the browser, so no video is ever uploaded. Joint angles drive a state machine that counts repetitions, scores form, and declines to score the ones it could not track.",
+    points: [
+      "A webcam coach that counts repetitions and scores exercise form.",
+      "MediaPipe Pose runs in WebAssembly on-device, so no video frame is ever uploaded.",
+      "Joint angles drive a state machine that counts reps and leaves badly tracked ones deliberately unscored.",
+    ],
     role: "Pose pipeline, model, API, interface",
     year: "2026",
     liveUrl: LIVE.formfit,
@@ -185,6 +208,11 @@ export const PROJECTS: Project[] = [
     tagline: "Food photographs into calories and macros",
     summary:
       "Zero-shot CLIP recognises the dish against 188 food classes with no training examples, then every nutrition figure is labelled with where it came from — a USDA record or an author estimate.",
+    points: [
+      "Turns a photograph of a meal into calories and macros.",
+      "Zero-shot CLIP ViT-B/32 on ONNX matches the dish against 188 food classes with no training examples.",
+      "Every nutrition figure is labelled with its source — a USDA record or an author estimate.",
+    ],
     role: "Model, evaluation, API, interface",
     year: "2026",
     liveUrl: LIVE.nutrisnap,
@@ -223,7 +251,15 @@ export const getProject = (slug: string) => PROJECTS.find((p) => p.slug === slug
 export const SKILL_GROUPS = [
   {
     title: "Development",
-    items: ["TypeScript", "JavaScript", "React 19", "Next.js 15 (App Router)", "HTML & CSS", "Tailwind CSS"],
+    items: [
+      "Data Structures & Algorithms",
+      "TypeScript",
+      "JavaScript",
+      "React 19",
+      "Next.js 15 (App Router)",
+      "HTML & CSS",
+      "Tailwind CSS",
+    ],
   },
   {
     title: "Back-end",
