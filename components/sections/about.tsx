@@ -2,11 +2,11 @@ import { Section } from "@/components/ui/primitives";
 
 /**
  * Short on purpose. An interviewer scans this in a few seconds before moving on
- * to the work, so it carries three things and nothing else: what he does, where
- * he studies, and enough context to judge the projects below.
+ * to the work, so it carries what he does, where he studies, and enough context
+ * to judge the projects below.
  *
- * Only facts verifiable from the work itself — nothing about employers,
- * clients, years of experience or awards, because none of that exists yet.
+ * Only facts that are verifiable — nothing about employers, clients or years of
+ * experience, because none of that exists yet.
  */
 const FACTS = [
   { k: "Studying", v: "B.Tech, Computer Science and Engineering" },
@@ -49,6 +49,21 @@ export function About() {
             <p className="mt-2 text-[0.9375rem] text-ink">E-Cell &mdash; Content &amp; Media Co-Lead</p>
             <p className="mt-1 max-w-[46ch] text-[0.875rem] leading-relaxed text-muted">
               Content and media initiatives for the campus entrepreneurship cell.
+            </p>
+          </div>
+
+          {/* The one competitive result so far, given the same label-and-line
+              treatment as the role above it. Stated as a win, because that is
+              what it was — no ranking or field size is claimed, since neither
+              was recorded. */}
+          <div className="mt-7 border-t border-rule pt-5">
+            <p className="mono text-[0.75rem] text-accent">Achievement</p>
+            <p className="mt-2 text-[0.9375rem] text-ink">Failathon &mdash; Hackathon Winner</p>
+            <p className="mt-1 text-[0.875rem] text-muted">
+              Vishnu Institute of Technology &middot; 1st year, B.Tech
+            </p>
+            <p className="mt-1 max-w-[46ch] text-[0.875rem] leading-relaxed text-muted">
+              Won the college hackathon and received a &#8377;3,000 prize.
             </p>
           </div>
         </div>
